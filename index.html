@@ -3,1360 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mustang Notes | Cal Poly Personal Blog</title>
-    <!-- Google Font -->
+    <title>My Recipe Log</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Cal Poly Brand Colors */
-            --cp-green: #154734;
-            --cp-green-dark: #0d2e22;
-            --cp-green-light: #21634b;
-            --cp-gold: #C69214;
-            --cp-gold-light: #e6a817;
-            --cp-gold-subtle: #fbf5e6;
-            
-            /* UI Palette Light */
-            --bg-primary: #f4f6f4;
-            --bg-card: #ffffff;
-            --text-main: #1d2621;
-            --text-muted: #57655d;
-            --border-color: #e1e7e3;
-            --shadow: 0 10px 25px -5px rgba(21, 71, 52, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 20px 30px -10px rgba(21, 71, 52, 0.15);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0a1410;
-            --bg-card: #12211b;
-            --text-main: #e8f0eb;
-            --text-muted: #94a89c;
-            --border-color: #1e362c;
-            --cp-gold-subtle: #242211;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --shadow-hover: 0 20px 30px -10px rgba(198, 146, 20, 0.2);
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --primary: #15803d;
+            --primary-hover: #166534;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --max-width: 800px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-primary);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background-color: var(--bg);
             color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 60px;
-        }
-
-        h1, h2, h3, h4, .brand-font {
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: -0.02em;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
+            padding: 2rem 1rem;
         }
 
         .container {
-            max-width: 1240px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 24px;
         }
 
-        /* HEADER & NAVBAR */
         header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: var(--cp-green);
-            color: #ffffff;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            border-bottom: 3px solid var(--cp-gold);
+            margin-bottom: 2rem;
         }
 
-        .nav-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--cp-gold);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--cp-green-dark);
-            font-weight: 900;
-            box-shadow: inset 0 0 0 2px rgba(255,255,255,0.3);
-        }
-
-        .logo span {
-            color: var(--cp-gold);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.85);
-            padding: 6px 12px;
-            border-radius: var(--radius-sm);
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--cp-gold);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .theme-toggle {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--cp-gold);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.2);
-            transform: rotate(15deg);
-        }
-
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, var(--cp-green-dark) 0%, var(--cp-green) 100%);
-            color: white;
-            padding: 60px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(198, 146, 20, 0.15) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(198, 146, 20, 0.2);
-            border: 1px solid var(--cp-gold);
-            color: var(--cp-gold);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
+        h1 {
+            font-size: 2.25rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 16px;
+            letter-spacing: -0.025em;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
         }
 
-        .hero-title {
-            font-size: 3rem;
-            line-height: 1.15;
-            margin-bottom: 16px;
-            font-weight: 800;
-        }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: rgba(255,255,255,0.85);
-            margin-bottom: 28px;
-            max-width: 560px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 32px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            padding-top: 24px;
-        }
-
-        .stat-item h4 {
-            font-size: 1.8rem;
-            color: var(--cp-gold);
-            font-weight: 800;
-        }
-
-        .stat-item p {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
-        }
-
-        .author-card-mini {
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .author-avatar-lg {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--cp-gold);
-            margin: 0 auto 16px;
-            object-fit: cover;
-            background: #2b4c3f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-
-        .author-card-mini h3 {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-        }
-
-        .author-card-mini .tag {
-            color: var(--cp-gold);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .author-card-mini p {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s ease;
-        }
-
-        .btn-gold {
-            background: var(--cp-gold);
-            color: var(--cp-green-dark);
-        }
-
-        .btn-gold:hover {
-            background: var(--cp-gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(198, 146, 20, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-        }
-
-        .btn-outline:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: white;
-        }
-
-        /* MAIN CONTENT AREA */
-        .main-wrapper {
-            margin-top: -30px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2.3fr 1fr;
-            gap: 32px;
-        }
-
-        /* FILTERS BAR */
-        .filter-bar {
-            background: var(--bg-card);
-            padding: 18px 24px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            margin-bottom: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .categories-scroll {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        .cat-btn {
-            padding: 8px 16px;
-            border-radius: 100px;
-            border: 1px solid var(--border-color);
-            background: transparent;
+        .subtitle {
             color: var(--text-muted);
-            font-size: 0.88rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .cat-btn:hover, .cat-btn.active {
-            background: var(--cp-green);
-            color: #ffffff;
-            border-color: var(--cp-green);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .search-box {
-            position: relative;
-            min-width: 220px;
-        }
-
-        .search-box input {
             width: 100%;
-            padding: 9px 16px 9px 38px;
-            border-radius: 100px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-primary);
+            padding: 0.85rem 1.25rem;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--surface);
             color: var(--text-main);
-            font-size: 0.88rem;
             outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .search-box input:focus {
-            border-color: var(--cp-green);
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15);
         }
 
-        .search-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .add-recipe-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
-        /* BLOG POST CARDS */
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .post-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .post-thumb {
-            height: 190px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .post-category-tag {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            background: var(--cp-green);
-            color: var(--cp-gold);
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 4px;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .post-content {
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .post-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .post-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .post-excerpt {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-
-        .post-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 14px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-        }
-
-        .read-time {
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .btn-link {
-            color: var(--cp-green);
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+        .add-recipe-section summary {
+            font-weight: 600;
+            font-size: 1.1rem;
             cursor: pointer;
+            color: var(--primary);
+            user-select: none;
         }
 
-        [data-theme="dark"] .btn-link {
-            color: var(--cp-gold);
+        .form-group {
+            margin-top: 1.25rem;
         }
 
-        .btn-link:hover {
-            text-decoration: underline;
-        }
-
-        /* SIDEBAR WIDGETS */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        .widget {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 24px;
-            box-shadow: var(--shadow);
-        }
-
-        .widget-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--cp-gold);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        /* Weather Widget */
-        .slo-weather {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(to right, var(--cp-green), var(--cp-green-light));
-            color: white;
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            margin-top: 8px;
-        }
-
-        .weather-info h5 {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-        }
-
-        .weather-info p {
-            font-size: 0.8rem;
-            opacity: 0.85;
-        }
-
-        .weather-temp {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--cp-gold);
-        }
-
-        /* Tag Cloud */
-        .tags-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag-item {
-            font-size: 0.8rem;
-            background: var(--bg-primary);
-            color: var(--text-muted);
-            padding: 5px 12px;
-            border-radius: 100px;
-            border: 1px solid var(--border-color);
-            font-weight: 500;
-        }
-
-        .tag-item:hover {
-            border-color: var(--cp-gold);
-            color: var(--cp-green);
-        }
-
-        /* Newsletter Widget */
-        .newsletter-box {
-            background: var(--cp-gold-subtle);
-            border: 1px dashed var(--cp-gold);
-        }
-
-        .newsletter-box input {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            margin: 12px 0;
-            font-size: 0.9rem;
-            background: var(--bg-card);
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
             color: var(--text-main);
         }
 
-        /* LEARN BY DOING SPOTLIGHT */
-        .spotlight-section {
-            margin: 60px 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 36px;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .spotlight-section::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            background: var(--cp-gold);
-        }
-
-        .spotlight-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            align-items: center;
-        }
-
-        /* MODAL ARTICLE READER */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-container {
-            background: var(--bg-card);
+        input[type="text"], textarea {
             width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            border-radius: var(--radius-lg);
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background-color: #fff;
         }
 
-        .modal-overlay.active .modal-container {
-            transform: translateY(0);
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.5);
+        button.btn {
+            margin-top: 1.25rem;
+            background-color: var(--primary);
             color: white;
             border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            z-index: 10;
+            transition: background-color 0.2s;
         }
 
-        .modal-hero {
-            height: 280px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
+        button.btn:hover {
+            background-color: var(--primary-hover);
         }
 
-        .modal-body {
-            padding: 36px;
-        }
-
-        .modal-body h1 {
-            font-size: 2.2rem;
-            margin-bottom: 16px;
-            line-height: 1.25;
-        }
-
-        .modal-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--text-main);
-            margin: 24px 0;
-        }
-
-        .modal-text p {
-            margin-bottom: 18px;
-        }
-
-        /* COMMENTS SECTION IN MODAL */
-        .comments-section {
-            border-top: 1px solid var(--border-color);
-            padding-top: 28px;
-            margin-top: 36px;
-        }
-
-        .comments-list {
-            margin-top: 20px;
+        .recipe-feed {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 2rem;
         }
 
-        .comment-item {
-            background: var(--bg-primary);
-            padding: 16px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
+        .recipe-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
         }
 
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+        .recipe-header {
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
         }
 
-        .comment-form {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .comment-form input {
-            flex-grow: 1;
-            padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            background: var(--bg-primary);
-            color: var(--text-main);
-        }
-
-        /* FOOTER */
-        footer {
-            background: var(--cp-green-dark);
-            color: white;
-            padding: 50px 0 30px;
-            margin-top: 80px;
-            border-top: 5px solid var(--cp-gold);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-brand h3 {
+        .recipe-title {
             font-size: 1.5rem;
-            color: var(--cp-gold);
-            margin-bottom: 12px;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
         }
 
-        .footer-brand p {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            max-width: 320px;
+        .recipe-meta {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1rem;
         }
 
-        .footer-links h4 {
-            font-size: 1.1rem;
-            margin-bottom: 16px;
-            color: white;
+        .recipe-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .footer-links ul {
-            list-style: none;
+        .ingredients-list {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem 1rem;
         }
 
-        .footer-links li {
-            margin-bottom: 8px;
+        .ingredients-list li {
+            padding-left: 1.25rem;
+            position: relative;
+            font-size: 0.95rem;
         }
 
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
+        .ingredients-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
 
-        .footer-links a:hover {
-            color: var(--cp-gold);
+        .instructions-list {
+            padding-left: 1.25rem;
         }
 
-        .footer-bottom {
+        .instructions-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .empty-state {
+            display: none;
             text-align: center;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.5);
-            font-size: 0.85rem;
-        }
-
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 992px) {
-            .hero-grid, .content-grid, .spotlight-grid, .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .main-wrapper {
-                margin-top: 0;
-            }
-
-            .hero {
-                padding: 40px 0 50px;
-            }
+            padding: 3rem;
+            color: var(--text-muted);
         }
 
         @media (max-width: 600px) {
-            .nav-wrapper {
-                flex-direction: column;
-                height: auto;
-                padding: 16px 0;
-                gap: 12px;
-            }
-
-            .filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-box {
-                width: 100%;
-            }
-
-            .hero-stats {
-                gap: 16px;
-            }
-
-            .stat-item h4 {
-                font-size: 1.4rem;
-            }
+            body { padding: 1rem 0.75rem; }
+            .recipe-card { padding: 1.25rem; }
+            .ingredients-list { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER & NAVIGATION -->
-    <header>
-        <div class="container nav-wrapper">
-            <a href="#" class="logo">
-                <div class="logo-icon">CP</div>
-                <div>MUSTANG<span>LOGS</span></div>
-            </a>
+    <div class="container">
+        <header>
+            <h1>My Recipe Log</h1>
+            <p class="subtitle">A simple personal collection of tested kitchen recipes.</p>
+            <input type="text" id="searchBar" class="search-box" placeholder="Search by name, tag, or ingredient..." onkeyup="filterRecipes()">
+        </header>
 
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#posts-section">Articles</a></li>
-                    <li><a href="#learn-by-doing">Senior Project</a></li>
-                    <li><a href="#about-author">About Alex</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-actions">
-                <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
-                    🌙
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="container hero-grid">
-            <div class="hero-text">
-                <div class="hero-badge">🎓 Cal Poly SLO • Class of '25</div>
-                <h1 class="hero-title">Learn by Doing. <br><span style="color: var(--cp-gold);">Write by Living.</span></h1>
-                <p class="hero-subtitle">
-                    Dispatches from San Luis Obispo. Documenting computer science labs, trail runs up Bishop Peak, farm-to-table engineering, and life on California's Central Coast.
-                </p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <h4 id="post-count">12</h4>
-                        <p>Published Stories</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>4th Year</h4>
-                        <p>Software Eng. Major</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>78° F</h4>
-                        <p>SLO Sunshine</p>
-                    </div>
+        <details class="add-recipe-section">
+            <summary>+ Add a New Recipe</summary>
+            <form id="recipeForm" onsubmit="addRecipe(event)">
+                <div class="form-group">
+                    <label for="title">Recipe Name</label>
+                    <input type="text" id="title" required placeholder="e.g., Garlic Butter Pasta">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="prepTime">Prep/Cook Time</label>
+                    <input type="text" id="prepTime" placeholder="e.g., 20 mins">
+                </div>
+                <div class="form-group">
+                    <label for="ingredients">Ingredients (one per line)</label>
+                    <textarea id="ingredients" required placeholder="200g Spaghetti&#10;3 cloves Garlic, minced&#10;2 tbsp Olive oil"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="instructions">Instructions (one step per line)</label>
+                    <textarea id="instructions" required placeholder="Boil pasta in salted water until al dente.&#10;Sauté minced garlic in olive oil over low heat.&#10;Toss pasta with garlic oil and serve."></textarea>
+                </div>
+                <button type="submit" class="btn">Save Recipe</button>
+            </form>
+        </details>
 
-            <div class="author-card-mini" id="about-author">
-                <div class="author-avatar-lg">🐎</div>
-                <h3>Alex Mustang</h3>
-                <span class="tag">@slo_coder • CS & Ag Tech</span>
-                <p>"Building sustainable IoT sensors for local vineyards by day, hiking Montana de Oro by dusk."</p>
-                <a href="#posts-section" class="btn btn-gold" style="width: 100%;">Explore My Articles</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- MAIN BLOG SECTION -->
-    <main class="container main-wrapper">
-        <div class="content-grid">
+        <main class="recipe-feed" id="recipeContainer">
             
-            <!-- LEFT COLUMN: POSTS FEED -->
-            <section id="posts-section">
-                <!-- Filter & Search Bar -->
-                <div class="filter-bar">
-                    <div class="categories-scroll" id="categoryFilters">
-                        <button class="cat-btn active" data-cat="all">All Stories</button>
-                        <button class="cat-btn" data-cat="learn-by-doing">Learn By Doing</button>
-                        <button class="cat-btn" data-cat="slo-life">SLO Life</button>
-                        <button class="cat-btn" data-cat="tech">Tech & Labs</button>
-                        <button class="cat-btn" data-cat="guides">Campus Guides</button>
-                    </div>
-                    
-                    <div class="search-box">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" id="searchInput" placeholder="Search posts...">
+            <article class="recipe-card">
+                <div class="recipe-header">
+                    <h2 class="recipe-title">Classic Tomato Basil Soup</h2>
+                    <div class="recipe-meta">
+                        <span>Time: 30 mins</span>
+                        <span>Servings: 4</span>
                     </div>
                 </div>
 
-                <!-- Articles Grid -->
-                <div class="posts-grid" id="postsContainer">
-                    <!-- Javascript populates posts dynamically -->
-                </div>
-            </section>
-
-            <!-- RIGHT COLUMN: SIDEBAR -->
-            <aside class="sidebar">
-                <!-- SLO Weather & Vibe Widget -->
-                <div class="widget">
-                    <div class="widget-title">
-                        <span>SLO Campus Vibe</span>
-                        <span>☀️</span>
-                    </div>
-                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">Live state from San Luis Obispo, CA:</p>
-                    <div class="slo-weather">
-                        <div class="weather-info">
-                            <h5>San Luis Obispo</h5>
-                            <p>Sunny & Breeze from Coast</p>
-                        </div>
-                        <div class="weather-temp">72°</div>
-                    </div>
-                </div>
-
-                <!-- Tag Cloud -->
-                <div class="widget">
-                    <div class="widget-title">
-                        <span>Popular Topics</span>
-                        <span>🏷️</span>
-                    </div>
-                    <div class="tags-list">
-                        <span class="tag-item">#PolyRoyal</span>
-                        <span class="tag-item">#BishopPeak</span>
-                        <span class="tag-item">#SeniorProject</span>
-                        <span class="tag-item">#CS357</span>
-                        <span class="tag-item">#HighStreetDeli</span>
-                        <span class="tag-item">#FarmersMarket</span>
-                        <span class="tag-item">#CalPolyAg</span>
-                    </div>
-                </div>
-
-                <!-- Newsletter Widget -->
-                <div class="widget newsletter-box">
-                    <div class="widget-title" style="border-color: var(--cp-gold);">
-                        <span>Join the Stampede</span>
-                        <span>✉️</span>
-                    </div>
-                    <p style="font-size: 0.88rem; color: var(--text-main);">Get weekly code breakdowns, SLO hiking logs, and Cal Poly project highlights straight to your inbox.</p>
-                    <form id="newsletterForm" onsubmit="handleSubscribe(event)">
-                        <input type="email" placeholder="student@calpoly.edu" required>
-                        <button type="submit" class="btn btn-gold" style="width: 100%;">Subscribe</button>
-                    </form>
-                </div>
-            </aside>
-        </div>
-
-        <!-- FEATURED LEARN BY DOING SPOTLIGHT -->
-        <section class="spotlight-section" id="learn-by-doing">
-            <div class="spotlight-grid">
-                <div>
-                    <div class="hero-badge" style="background: var(--cp-gold-subtle);">🛠️ Featured Senior Project</div>
-                    <h2 style="font-size: 2rem; margin-bottom: 16px; color: var(--cp-green);">Autonomous Soil Sensor Array in the Campus Orchards</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">
-                        How we merged computer engineering with Cal Poly's rich agricultural heritage. Installing LoRaWAN micro-controllers across 40 acres of avocado orchards to monitor real-time moisture levels.
-                    </p>
-                    <button class="btn btn-gold" onclick="openFeaturedModal()">View Full Lab Breakdown</button>
-                </div>
-                <div style="background: linear-gradient(45deg, var(--cp-green), #2c6e54); height: 240px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--cp-gold); font-size: 4rem; box-shadow: var(--shadow);">
-                    🌾🌱⚡
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <h3>MUSTANG LOGS</h3>
-                <p>An independent personal blog built by a Cal Poly student. Embodying the "Learn by Doing" ethos through code, writing, and community outdoor exploration.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#posts-section">All Blog Posts</a></li>
-                    <li><a href="#learn-by-doing">Senior Capstone</a></li>
-                    <li><a href="https://www.calpoly.edu" target="_blank" rel="noopener">Cal Poly Official Site</a></li>
+                <div class="recipe-section-title">Ingredients</div>
+                <ul class="ingredients-list">
+                    <li>1 tbsp Olive oil</li>
+                    <li>1 Yellow onion, diced</li>
+                    <li>3 cloves Garlic, minced</li>
+                    <li>28 oz Canned crushed tomatoes</li>
+                    <li>2 cups Vegetable broth</li>
+                    <li>1/2 cup Heavy cream</li>
+                    <li>1/4 cup Fresh basil leaves</li>
                 </ul>
-            </div>
-            <div class="footer-links">
-                <h4>SLO Traditions</h4>
-                <ul>
-                    <li><a href="#">Thursday Farmers Market</a></li>
-                    <li><a href="#">Tri-Tip Challenge Guide</a></li>
-                    <li><a href="#">Architecture Graveyard Hikes</a></li>
+
+                <div class="recipe-section-title">Instructions</div>
+                <ol class="instructions-list">
+                    <li>Heat olive oil in a large pot over medium heat and sauté onion until soft.</li>
+                    <li>Add garlic and cook for 1 minute until fragrant.</li>
+                    <li>Pour in crushed tomatoes and vegetable broth. Simmer for 15 minutes.</li>
+                    <li>Blend the soup using an immersion blender until smooth.</li>
+                    <li>Stir in heavy cream and chopped basil. Season with salt and pepper.</li>
+                </ol>
+            </article>
+
+            <article class="recipe-card">
+                <div class="recipe-header">
+                    <h2 class="recipe-title">Crispy Chickpea Salad</h2>
+                    <div class="recipe-meta">
+                        <span>Time: 15 mins</span>
+                        <span>Servings: 2</span>
+                    </div>
+                </div>
+
+                <div class="recipe-section-title">Ingredients</div>
+                <ul class="ingredients-list">
+                    <li>1 can Chickpeas, drained and rinsed</li>
+                    <li>1 Cucumber, diced</li>
+                    <li>1 cup Cherry tomatoes, halved</li>
+                    <li>1/4 cup Feta cheese, crumbled</li>
+                    <li>2 tbsp Lemon juice</li>
+                    <li>2 tbsp Extra virgin olive oil</li>
                 </ul>
-            </div>
-        </div>
-        <div class="footer-bottom container">
-            <p>© 2025 Alex Mustang. Designed with Pride in San Luis Obispo, California. Ride High, You Mustangs! 🐎</p>
-        </div>
-    </footer>
 
-    <!-- ARTICLE READER MODAL -->
-    <div class="modal-overlay" id="articleModal">
-        <div class="modal-container">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <div class="modal-hero" id="modalHero"></div>
-            <div class="modal-body">
-                <div class="post-meta" id="modalMeta"></div>
-                <h1 id="modalTitle">Article Title</h1>
-                <div class="modal-text" id="modalContent">
-                    <!-- Dynamic text inserted here -->
-                </div>
+                <div class="recipe-section-title">Instructions</div>
+                <ol class="instructions-list">
+                    <li>Pat chickpeas dry with a paper towel.</li>
+                    <li>Combine chickpeas, cucumber, tomatoes, and feta in a bowl.</li>
+                    <li>Whisk lemon juice and olive oil together, then pour over the salad.</li>
+                    <li>Toss gently to combine and serve cold.</li>
+                </ol>
+            </article>
 
-                <!-- Interactive Comments -->
-                <div class="comments-section">
-                    <h3>Discussion (<span id="commentCount">0</span>)</h3>
-                    <div class="comment-form">
-                        <input type="text" id="commentInput" placeholder="Add a comment as a fellow Mustang...">
-                        <button class="btn btn-gold" onclick="addComment()">Post</button>
-                    </div>
-                    <div class="comments-list" id="commentsList">
-                        <!-- Dynamic Comments -->
-                    </div>
-                </div>
-            </div>
+        </main>
+
+        <div id="emptyState" class="empty-state">
+            No recipes matching your search criteria were found.
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Sample Blog Posts Database
-        const postsData = [
-            {
-                id: 1,
-                title: "Surviving CS 357: Systems Programming at 2 AM in Building 14",
-                category: "learn-by-doing",
-                categoryLabel: "Learn By Doing",
-                date: "Oct 12, 2025",
-                readTime: "5 min read",
-                excerpt: "Memory leaks, pointer arithmetic, and the legendary C debugging sagas. Here is how my team built a shell from scratch in the computer engineering labs.",
-                image: "linear-gradient(135deg, #154734, #0d2e22)",
-                icon: "💻",
-                content: `
-                    <p>There's a distinct sound to Building 14 at 2:00 AM on a Tuesday. It's the rhythmic clicking of mechanical keyboards, the hum of fluorescent lights, and the occasional sigh of relief when a C program passes <code>valgrind</code> without memory leaks.</p>
-                    <p>In CS 357 (Systems Programming), the motto 'Learn by Doing' isn't just a marketing line—it's survival. For our mid-quarter project, we were tasked with writing a custom Unix shell capable of pipeline execution and process management.</p>
-                    <h3>Key Takeaways from the Lab:</h3>
-                    <ul>
-                        <li>Always check return codes for <code>fork()</code> and <code>execvp()</code>.</li>
-                        <li>GDB is your best friend—embrace conditional breakpoints.</li>
-                        <li>High Street Deli sandwiches taste twice as good after solving a segfault.</li>
-                    </ul>
-                    <p>Building something from the ground up gave me a deep appreciation for the operating system layers we usually take for granted.</p>
-                `,
-                comments: [
-                    { name: "Sarah K.", text: "Building 14 late nights are a true rite of passage! Good luck on finals!" },
-                    { name: "Devin (EE)", text: "Wait until you take OS with Mammen!" }
-                ]
-            },
-            {
-                id: 2,
-                title: "The Ultimate Guide to Hiking the Tri-Peaks in San Luis Obispo",
-                category: "slo-life",
-                categoryLabel: "SLO Life",
-                date: "Nov 3, 2025",
-                readTime: "7 min read",
-                excerpt: "Bishop Peak, Cerro San Luis (Madonna), and the Architecture Graveyard. How to tackle SLO's best summits in one epic weekend.",
-                image: "linear-gradient(135deg, #C69214, #e6a817)",
-                icon: "⛰️",
-                content: `
-                    <p>Living in San Luis Obispo means you are never more than 10 minutes away from a trailhead. The volcanic plugs known as the Nine Sisters frame our town, providing incredible vistas of the Central Coast.</p>
-                    <p>Here is my recommended guide to tackling the top peaks while keeping up with your class schedule:</p>
-                    <p><strong>1. Bishop Peak for Sunrise:</strong> Start at the Patricia Drive trailhead at 5:45 AM. The view over fog-filled valleys as the sun comes up behind the campus is unmatched.</p>
-                    <p><strong>2. Cerro San Luis (Madonna M):</strong> Perfect for a late afternoon run. The trail weaves through oak groves and offers a full panorama of downtown SLO.</p>
-                    <p><strong>3. Poly Canyon Architecture Graveyard:</strong> Not a peak, but an absolute must-visit. Decades of student-designed structural experiments scattered across serene rolling hills.</p>
-                `,
-                comments: [
-                    { name: "Liam R.", text: "Pro tip: Hit Firestone Grill for a tri-tip sandwich after Bishop Peak!" }
-                ]
-            },
-            {
-                id: 3,
-                title: "IoT in Agriculture: Building Low-Power Sensors for Campus Orchards",
-                category: "tech",
-                categoryLabel: "Tech & Labs",
-                date: "Nov 20, 2025",
-                readTime: "6 min read",
-                excerpt: "Bridging the gap between the College of Engineering and College of Agriculture. Deploying custom microcontrollers on LoRaWAN networks.",
-                image: "linear-gradient(135deg, #1e362c, #154734)",
-                icon: "🌱",
-                content: `
-                    <p>One of Cal Poly's greatest strengths is cross-disciplinary collaboration. This quarter, our team teamed up with the Plant Sciences department to deploy custom soil moisture sensors in the lemon orchards near Poly Canyon.</p>
-                    <p>Using ESP32 microcontrollers and LoRaWAN wireless protocol, we established a telemetry network capable of transmitting moisture data up to 5 miles with minimal battery consumption.</p>
-                    <p>The result? A 22% reduction in water usage for test plots during the autumn dry spell.</p>
-                `,
-                comments: []
-            },
-            {
-                id: 4,
-                title: "First-Timer's Survival Map for the Downtown SLO Thursday Farmers Market",
-                category: "guides",
-                categoryLabel: "Campus Guides",
-                date: "Dec 1, 2025",
-                readTime: "4 min read",
-                excerpt: "Ribs, fresh berries, local buskers, and crowds. Here is how to navigate Higuera Street like a seasoned local.",
-                image: "linear-gradient(135deg, #e6a817, #154734)",
-                icon: "🚜",
-                content: `
-                    <p>Every Thursday night, downtown San Luis Obispo transforms into six blocks of food heaven and community celebration. If you are new to Cal Poly, it can be overwhelming.</p>
-                    <h3>Must-Try Stalls:</h3>
-                    <p><strong>1. BBQ Ribs:</strong> Follow the fragrant oak smoke. The line moves fast, and the barbecue sauce is legendary.</p>
-                    <p><strong>2. Local Olallieberries:</strong> Grab a basket of fresh berries grown in nearby Cambria.</p>
-                    <p><strong>3. Student Musicians:</strong> Make sure to stop around Morro Street to support student acoustic sets!</p>
-                `,
-                comments: [
-                    { name: "Maya S.", text: "Don't forget to grab the fresh roasted corn!" }
-                ]
-            }
-        ];
+        function filterRecipes() {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            const cards = document.querySelectorAll('.recipe-card');
+            let visibleCount = 0;
 
-        let activePostId = null;
-
-        // RENDER POST CARDS
-        function renderPosts(filterCategory = 'all', searchQuery = '') {
-            const container = document.getElementById('postsContainer');
-            container.innerHTML = '';
-
-            const filtered = postsData.filter(post => {
-                const matchesCat = filterCategory === 'all' || post.category === filterCategory;
-                const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-                return matchesCat && matchesSearch;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-                        <h3>No Mustang stories found! 🐴</h3>
-                        <p style="color: var(--text-muted); margin-top: 8px;">Try searching for something else or change filters.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            filtered.forEach(post => {
-                const card = document.createElement('article');
-                card.className = 'post-card';
-                card.innerHTML = `
-                    <div class="post-thumb" style="background: ${post.image}; display: flex; align-items: center; justify-content: center; font-size: 3.5rem;">
-                        <span class="post-category-tag">${post.categoryLabel}</span>
-                        ${post.icon}
-                    </div>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span>📅 ${post.date}</span>
-                            <span>•</span>
-                            <span>⏱️ ${post.readTime}</span>
-                        </div>
-                        <h3 class="post-title">${post.title}</h3>
-                        <p class="post-excerpt">${post.excerpt}</p>
-                        <div class="post-footer">
-                            <span class="read-time">💬 ${post.comments.length} Comments</span>
-                            <span class="btn-link" onclick="openModal(${post.id})">Read Article →</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            document.getElementById('post-count').innerText = postsData.length;
-        }
-
-        // MODAL HANDLERS
-        function openModal(id) {
-            const post = postsData.find(p => p.id === id);
-            if (!post) return;
-            
-            activePostId = id;
-            document.getElementById('modalHero').style.background = post.image;
-            document.getElementById('modalHero').style.display = 'flex';
-            document.getElementById('modalHero').style.alignItems = 'center';
-            document.getElementById('modalHero').style.justifyContent = 'center';
-            document.getElementById('modalHero').style.fontSize = '5rem';
-            document.getElementById('modalHero').innerHTML = post.icon;
-
-            document.getElementById('modalMeta').innerHTML = `
-                <span>📅 ${post.date}</span>
-                <span>•</span>
-                <span>🏷️ ${post.categoryLabel}</span>
-                <span>•</span>
-                <span>⏱️ ${post.readTime}</span>
-            `;
-            document.getElementById('modalTitle').innerText = post.title;
-            document.getElementById('modalContent').innerHTML = post.content;
-            
-            renderComments(post.comments);
-
-            document.getElementById('articleModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function openFeaturedModal() {
-            // Opens custom featured project as article
-            openModal(3);
-        }
-
-        function closeModal() {
-            document.getElementById('articleModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function renderComments(comments) {
-            const list = document.getElementById('commentsList');
-            document.getElementById('commentCount').innerText = comments.length;
-            list.innerHTML = '';
-
-            if(comments.length === 0) {
-                list.innerHTML = `<p style="font-size:0.88rem; color:var(--text-muted);">No comments yet. Be the first Mustang to chime in!</p>`;
-                return;
-            }
-
-            comments.forEach(c => {
-                const item = document.createElement('div');
-                item.className = 'comment-item';
-                item.innerHTML = `
-                    <div class="comment-header">
-                        <span>${c.name}</span>
-                        <span style="color:var(--cp-gold);">Verified Cal Poly Reader</span>
-                    </div>
-                    <p style="font-size:0.9rem; color:var(--text-main);">${c.text}</p>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        function addComment() {
-            const input = document.getElementById('commentInput');
-            const val = input.value.trim();
-            if(!val || !activePostId) return;
-
-            const post = postsData.find(p => p.id === activePostId);
-            if(post) {
-                post.comments.push({
-                    name: "Cal Poly Guest",
-                    text: val
-                });
-                renderComments(post.comments);
-                input.value = '';
-                renderPosts(); // Refresh comment counter on main feed
-            }
-        }
-
-        function handleSubscribe(e) {
-            e.preventDefault();
-            alert("Welcome to the Stampede! You've been subscribed to Cal Poly Mustang updates.");
-            e.target.reset();
-        }
-
-        // EVENT LISTENERS & SETUP
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPosts();
-
-            // Search filter event
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                const activeCatBtn = document.querySelector('.cat-btn.active');
-                const cat = activeCatBtn ? activeCatBtn.dataset.cat : 'all';
-                renderPosts(cat, e.target.value);
-            });
-
-            // Category buttons filter
-            const catBtns = document.querySelectorAll('.cat-btn');
-            catBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    catBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const searchVal = document.getElementById('searchInput').value;
-                    renderPosts(btn.dataset.cat, searchVal);
-                });
-            });
-
-            // Dark Mode Toggle
-            const themeBtn = document.getElementById('themeToggle');
-            themeBtn.addEventListener('click', () => {
-                const currentTheme = document.body.getAttribute('data-theme');
-                if (currentTheme === 'dark') {
-                    document.body.removeAttribute('data-theme');
-                    themeBtn.innerText = '🌙';
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                    visibleCount++;
                 } else {
-                    document.body.setAttribute('data-theme', 'dark');
-                    themeBtn.innerText = '☀️';
+                    card.style.display = 'none';
                 }
             });
 
-            // Modal Close handlers
-            document.getElementById('modalClose').addEventListener('click', closeModal);
-            document.getElementById('articleModal').addEventListener('click', (e) => {
-                if(e.target.id === 'articleModal') closeModal();
-            });
-        });
-    </script>
-</body>
-</html>
+            const emptyState = document.getElementById('emptyState');
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function addRecipe(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const prepTime = document.getElementById('prepTime').value || 'Unspecified';
+            const ingredientsText = document.getElementById('ingredients').value;
+            const instructionsText = document.getElementById('instructions').value;
+
+            const ingredientsArray = ingredientsText.split('\n').filter(line => line.trim() !== '');
+            const instructionsArray = instructionsText
